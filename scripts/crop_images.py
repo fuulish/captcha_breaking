@@ -53,6 +53,7 @@ if __name__ == '__main__':
         os.mkdir(args.outdir)
 
     fns = glob(args.imgdir + '/*.png')
+    fns.sort()
 
     for fn in fns:
         print 'working on image %s' %fn

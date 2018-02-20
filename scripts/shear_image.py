@@ -33,11 +33,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-n', '--number-of-graylevels', default=256, dest='numcol',
-            help='how many distinct gray levels should be used')
+            help='how many distinct gray levels should be used', type=int)
     parser.add_argument('-i', '--image-directory', default='./', dest='imgdir',
             help='directory containing images to process')
     parser.add_argument('-c', '--coarsening', default=10, dest='coarse',
-            help='level of coarsening of input pictures')
+            help='level of coarsening of input pictures', type=int)
     parser.add_argument('-o', '--output-directory', default='./', dest='outdir',
             help='directory for output of processed pictures')
 
@@ -58,14 +58,24 @@ if __name__ == '__main__':
     for fn in fns:
         print 'working on image %s' %fn
         image = cv2.imread(fn, cv2.IMREAD_GRAYSCALE)
-        
+
         if args.numcol != 256:
             image = colorization(image, args.numcol)
-        skewed = np.float32([[image.shape[1]-image.shape[0],0], [0,image.shape[0]], [image.shape[0], image.shape[0]]] )
-        straight = np.float32([[0,0], [0,image.shape[0]], [image.shape[0], image.shape[0]]])
 
-        M = cv2.getAffineTransform(skewed,straight)
-        final_image = cv2.warpAffine(image,M,(image.shape[1],image.shape[0]))
+        if image.shape[1] != image.shape[0]:
+            skewed = np.float32([[image.shape[1]-image.shape[0],0], [0,image.shape[0]], [image.shape[0], image.shape[0]]] )
+            straight = np.float32([[0,0], [0,image.shape[0]], [image.shape[0], image.shape[0]]])
+
+            M = cv2.getAffineTransform(skewed,straight)
+            final_image = cv2.warpAffine(image,M,(image.shape[1],image.shape[0]))
+
+            last_out = -(image.shape[1]-image.shape[0])
+        else:
+            final_image = image
+            last_out = None
+
         newfile = args.outdir + '/' + fn.split('/')[-1]
-        cv2.imwrite(newfile.replace('.png', '_sheared.png'), final_image[:,:-(image.shape[1]-image.shape[0])])
+        cv2.imwrite(newfile.replace('.png', '_sheared.png'), final_image[:,:last_out])
 
+        sliced = average_image(final_image[:,:last_out], args.coarse)
+        cv2.imwrite(newfile.replace('.png', '_sliced.png'), sliced)

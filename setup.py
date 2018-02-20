@@ -12,6 +12,7 @@ setup(name='aps_captcha',
       packages=['mlc'],
       scripts=[
           'scripts/crop_images.py',
+          'scripts/shear_image.py',
           'scripts/prep_data.py',
           'scripts/trainNpredict.py',
           ],

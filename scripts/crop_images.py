@@ -33,11 +33,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-n', '--number-of-graylevels', default=256, dest='numcol',
-            help='how many distinct gray levels should be used')
+            help='how many distinct gray levels should be used', type=int)
     parser.add_argument('-i', '--image-directory', default='./', dest='imgdir',
             help='directory containing images to process')
     parser.add_argument('-c', '--coarsening', default=10, dest='coarse',
-            help='level of coarsening of input pictures')
+            help='level of coarsening of input pictures', type=int)
     parser.add_argument('-o', '--output-directory', default='./', dest='outdir',
             help='directory for output of processed pictures')
 

@@ -24,7 +24,6 @@ def average_image(image, cfac):
 def colorization(image, bits):
     num = 256 / bits
     image = image / num * num # eight gray scales
-    cv2.imwrite(fn.replace('.png', '_8bit.png'), image)
 
     return image
 

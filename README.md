@@ -1,4 +1,4 @@
-# Breaking the APS captcha
+# Breaking a captcha (based on pictures of humans and non-humans)
 
 This code is intended as a fun project to gain familiarity
 with the basics of machine learning algorithms.

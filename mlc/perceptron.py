@@ -55,4 +55,4 @@ class Perceptron(MLC):
             net input, i.e., sum over weights x features
         """
 
-        return np.dot(self.w_, X) + self.theta_
+        return np.dot(X, self.w_) + self.theta_

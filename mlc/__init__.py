@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-__all__ = ['perceptron']
+__all__ = ['perceptron', 'adaline']
 
 class MLC(object):
     """
@@ -60,7 +60,7 @@ class MLC(object):
 
     def standardize_data(self, X):
         """
-        standardize input data (feature vectors) inplace
+        standardize input data (feature vectors)
 
         Parameters
         ----------
@@ -73,4 +73,4 @@ class MLC(object):
             rescaled and recentered feature array for nsamples data points
         """
 
-        return X
+        return (X - X.mean(axis=0)) / X.std(axis=0)

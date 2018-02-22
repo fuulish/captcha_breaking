@@ -35,8 +35,6 @@ class Adaline(Perceptron):
 
         for _ in range(self.niter):
             errors = (y - self.net_input(X))
-            # print errors, X.T.dot(errors)
-            print self.w_
 
             self.w_ += self.eta * X.T.dot(errors) #np.dot(X, errors)
             self.theta_ += self.eta * errors.sum()

@@ -21,7 +21,7 @@ window.addEventListener('load', function() {
         var under_text = document.createTextNode(verify_image(captcha));
         var h = document.createElement("H1");
         h.appendChild(under_text);
-        button[i].childNodes[0].appendChild(ah);
+        button[i].childNodes[0].appendChild(h);
     }
 
 }, false);
